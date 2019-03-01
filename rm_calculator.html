@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RM Calc</title>
+</head>
+<body>
+  <h2>Welcome to the RM Calc</h2>
+  <p> Write your RM and quantity in this format: <br><br>"Quantum: 500"<br>
+  <br>
+  <textarea id="txtArea" rows="15" cols="70"></textarea>
+  <br>
+  <button onclick="calculate()">Calculate</button>
+  <script>
+  function calculate()
+  {
+    var totalVol = 0;
+    var totalWeight = 0;
+    var input = (document.getElementById("txtArea").value).split('\n');
+    for (var i = 0; i < input.length; i++)
+    {
+      var line = input[i].split(':');
+      var RM = line[0];
+      var Quantity = parseInt(line[1]);
+      totalVol += Quantity;
+      totalWeight += (getWeight(RM) * Quantity);
+    }
+    alert("Total Volume: " + totalVol + "\nTotal Weight: " + totalWeight);
+  }
+  function getWeight(material)
+  {
+    switch(material)
+    {
+      case 'Quantum':
+        return 12;
+      case 'Meleenium':
+        return 11;
+      case 'Ardanium':
+        return 8;
+      case 'Rudic':
+        return 1;
+      case 'Ryll':
+        return 1;
+      case 'Duracrete':
+        return 9;
+      case 'Alazhi':
+        return 2;
+      case 'Laboi':
+        return 4;
+      case 'Adegan':
+        return 3;
+      case 'Rockivory':
+        return 12;
+      case 'Tibannagas':
+        return 0.16;
+      case 'Nova':
+        return 2;
+      case 'Varium':
+        return 10;
+      case 'Varmigio':
+        return 9;
+      case 'Lommite':
+        return 6;
+      case 'Hibridium':
+        return 14;
+      case 'Durelium':
+        return 8;
+      case 'Lowickan':
+        return 4;
+      case 'Vertex':
+        return 4;
+      case 'Berubian':
+        return 3;
+      case 'Bacta':
+        return 0.8;
+    }
+  }
+  </script>
+</body>
+</html>
