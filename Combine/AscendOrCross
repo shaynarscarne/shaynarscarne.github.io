@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ascend or Cross Terrain?</title>
+</head>
+<body>
+  <h2> Welcome </h2>
+  <br>
+  <label for="sublight">Sublight Speed:</label>
+  <input type="number" id="sublight" name="sublight" placeholder=20 required>
+  <br>
+  <br>
+  <label for="curPos">Current Position:</label>
+  <input type="text" id="curPos" name="curPos" placeholder=0,0 required>
+  <br>
+  <br>
+  <label for="destPos">Destination:</label>
+  <input type="text" id="destPos" name="destPos" placeholder=10,10 required>
+  <br>
+  <br>
+  <label for="skill">Skill:</label>
+  <input type="number" id="skill" name="skill" placeholder=5 required>
+  <br>
+  <br>
+  <br>
+  <button onclick="calculate()">Calculate</button>
+  <br>
+  <br>
+  <br>
+  <label for="dest">Solution:</label>
+  <input type="text" id="solution" name="solution"
+  	   minlength="3" maxlength="20" size="20" readonly
+  	   style="border-width:0px">
+  <script>
+    function calculate()
+    {
+        var distance = getDistance();
+        var totalSideToSide = (moveGround()*22)*(distance - 1); // sidetoside for all grids, minus the starting one.
+        var totalCross = (crossTerrain()*distance);
+        var totalTime = totalSideToSide+totalCross;
+        var ascendTime = 14400; // 4 hours in seconds
+        document.getElementById("solution").value = totalTime<ascendTime?"Cross Terrain (" + (totalTime/60) + " minutes)" : "Ascend (" + (ascendTime/60) + " minutes)";
+        console.log("Total: " + totalTime);
+        console.log("Ascend: " + ascendTime);
+    }
+    function speed()
+    {
+      var speed = document.getElementById('sublight').value;
+      skill = document.getElementById('skill').value;
+      speed = Math.min((10*speed), 200);
+      speed = speed + ((speed/100)*(skill*5));
+      speed = Math.max(speed, 1);
+      return speed; // speed in KM/H
+    }
+    function crossTerrain()
+    {
+      var seconds = (100 * 60 * 60) / speed();
+      seconds = Math.max(seconds, 30 * 60);
+      return seconds;
+    }
+    function moveGround()
+    {
+      var interval = Math.floor((50 * 60) * (1 / speed()));
+      return Math.max(interval, 60);
+    }
+    function getDistance()
+    {
+      var curPos = document.getElementById('curPos').value;
+      var dest = document.getElementById('destPos').value;
+      curPos = curPos.split(',').sort();
+      dest = dest.split(',').sort();
+      return Math.max(Math.abs(curPos[0]-dest[0]), Math.abs(curPos[1]-dest[1]));
+    }
+  </script>
+</body>
+</html>
