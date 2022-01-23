@@ -12,7 +12,12 @@
   <textarea id="txtArea" rows="15" cols="70" placeholder="Quantum: 500
 Meleenium: 1000
 Ardanium: 777" required></textarea>
+	  
   <br>
+  Multiplier for batches
+  <input type="number" id="multiplier" placeholder="1" name="multiplier"
+       min="0" max="1000">
+	  <br>
   <button onclick="calculate()">Calculate</button>
   <br>
   <br>
@@ -37,13 +42,14 @@ Ardanium: 777" required></textarea>
     totalWeight = 0;
     var totalMaterials = {};
     var input = (document.getElementById("txtArea").value).split('\n');
+    var multipler = (document.getElementById("multiplier").value);
     for (var i = 0; i < input.length; i++)
     {
       var line = input[i].split(':');
       var RM = line[0];
       var Quantity = parseInt(line[1].replace(/,/g, ''));
       if (RM in totalMaterials)
-        totalMaterials[RM] = totalMaterials[RM] + Quantity;
+        totalMaterials[RM] = totalMaterials[RM] + Quantity * multiplier;
       else
         totalMaterials[RM] = Quantity;
       totalVol += Quantity;
