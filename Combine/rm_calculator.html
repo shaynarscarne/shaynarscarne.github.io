@@ -48,8 +48,9 @@ Ardanium: 777" required></textarea>
       var line = input[i].split(':');
       var RM = line[0];
       var Quantity = parseInt(line[1].replace(/,/g, ''));
+      Quantity = Quantity * multiplier;
       if (RM in totalMaterials)
-        totalMaterials[RM] = totalMaterials[RM] + Quantity * multiplier;
+        totalMaterials[RM] = totalMaterials[RM] + Quantity;
       else
         totalMaterials[RM] = Quantity;
       totalVol += Quantity;
