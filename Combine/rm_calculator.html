@@ -42,14 +42,13 @@ Ardanium: 777" required></textarea>
     totalWeight = 0;
     var totalMaterials = {};
     var input = (document.getElementById("txtArea").value).split('\n');
-    var multipler = parseInt(document.getElementById("multiplier").value);
-    console.log(multiplier)
+    var multi = parseInt(document.getElementById("multiplier").value);
     for (var i = 0; i < input.length; i++)
     {
       var line = input[i].split(':');
       var RM = line[0];
       var Quantity = parseInt(line[1].replace(/,/g, ''));
-      console.log(Quantity)
+      var Quantity = Quantity * multi;
       if (RM in totalMaterials)
         totalMaterials[RM] = totalMaterials[RM] + Quantity;
       else
